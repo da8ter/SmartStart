@@ -20,7 +20,7 @@
       "caption": "Laufzeit (Minuten)"
     },
     {
-      "type": "Time",
+      "type": "SelectTime",
       "name": "EndTime",
       "caption": "Fertig um"
     }
