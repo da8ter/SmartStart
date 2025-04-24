@@ -1,0 +1,15 @@
+{
+  "author": "Stephan Sprick",
+  "url": "https://github.com/da8ter/TibberBestPriceDeviceStarter.git",
+  "version": "1.0",
+  "build": 1,
+  "date": "2025-04-24",
+  "modules": [
+    {
+      "id": "{2F8E9F2C-8E8C-4D3D-9F8E-EXAMPLE}",
+      "name": "TibberBestPriceDeviceStarter",
+      "type": 3,
+      "vendor": "Stephan Sprick"
+    }
+  ]
+}
