@@ -1,13 +1,10 @@
 {
     "id": "{A0E370CC-0327-C3CA-3791-C652463FAA6F}",
-    "author": "Stephan Sprick",
     "name": "TibberBestPriceDeviceStarter",
-    "url": "https://github.com/da8ter/TibberBestPriceDeviceStarter.git",
-    "version": "1.0",
-    "build": 1,
-    "date": "2025-04-24",
-    "compatibility": {
-        "version": "6.0"
-    },
-    "copyright": "(c) 2025 Stephan Sprick"
+    "aliases": [],
+    "parentRequirements": [],
+    "childRequirements": [],
+    "implemented": [],
+    "prefix": "TIBS",
+    "url": "https://github.com/da8ter/TibberBestPriceDeviceStarter.git"
 }
