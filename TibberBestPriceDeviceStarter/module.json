@@ -2,6 +2,7 @@
     "id": "{A0E370CC-0327-C3CA-3791-C652463FAA6F}",
     "name": "TibberBestPriceDeviceStarter",
     "aliases": [],
+    "type": 3,
     "parentRequirements": [],
     "childRequirements": [],
     "implemented": [],
