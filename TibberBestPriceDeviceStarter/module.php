@@ -8,7 +8,7 @@ class TibberBestPriceDeviceStarter extends IPSModule {
         $this->RegisterPropertyInteger('PriceVarID', 0); // ID der Preis-Variable
         $this->RegisterPropertyInteger('TargetVarID', 0); // ID der Ziel-Variable (Schaltaktor)
         $this->RegisterPropertyInteger('Duration', 60); // Laufzeit in Minuten
-        $this->RegisterPropertyString('EndTime', '22:00'); // Fertig um (HH:MM)
+        $this->RegisterPropertyInteger('EndTime', 79200); // Fertig um (Sekunden seit Mitternacht, Default: 22:00)
 
         // Variablen
         $this->RegisterVariableBoolean('StartCalculation', $this->Translate('Berechnung starten'), '', 1);
@@ -72,9 +72,9 @@ class TibberBestPriceDeviceStarter extends IPSModule {
 
         $now = time();
         $today = date('Y-m-d');
-        $endTimestamp = strtotime($today . ' ' . $endTime);
+        $endTimestamp = strtotime($today) + $endTimeSeconds;
         if ($endTimestamp < $now) {
-            $endTimestamp = strtotime('+1 day', $endTimestamp);
+            $endTimestamp = strtotime('+1 day', strtotime($today)) + $endTimeSeconds;
         }
         $windowStart = $now;
         $windowEnd = $endTimestamp;
@@ -128,7 +128,7 @@ class TibberBestPriceDeviceStarter extends IPSModule {
             IPS_SetName($switchOnEvent, 'Gerät einschalten');
             IPS_SetParent($switchOnEvent, $this->InstanceID);
             IPS_SetEventCyclicTimeFrom($switchOnEvent, (int)date('H', $startTimestamp), (int)date('i', $startTimestamp), 0);
-            IPS_SetEventCyclicDateFrom($switchOnEvent, (int)date('d', $startTimestamp), (int)date('m', $startTimestamp));
+            IPS_SetEventCyclicDateFrom($switchOnEvent, (int)date('d', $startTimestamp), (int)date('m', $startTimestamp), (int)date('Y', $startTimestamp));
             IPS_SetEventCyclic($switchOnEvent, 0, 0, 0, 0, 0, 0);
             IPS_SetEventActive($switchOnEvent, true);
             IPS_SetEventScript($switchOnEvent, 'SetValue(' . $targetVarID . ', true);');
