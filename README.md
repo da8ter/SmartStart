@@ -1,26 +1,27 @@
-# TibberBestPriceDeviceStarter
+# Tibber Smart-Start
 
-This IP-Symcon module automatically switches a device on at the optimal (cheapest) electricity price time, based on an externally provided price variable.
+Dieses IP-Symcon Modul schaltet ein Gerät automatisch zum optimalen (günstigsten) Strompreis ein. Die Preisinformationen müssen über eine externe Preis-Variable bereitgestellt werden. (z.B. durch das Modul "Tibber V2" Variable "Preisvorschaudaten für Energie Optimierer")
 
-## Features
-- Calculates the best start time for a device based on price data
-- Switches the device on at the calculated time (Boolean variable)
-- Can be canceled at any time
+Beispiel für einen Anwendungsfall:
 
-## Setup
-1. Import the module into IP-Symcon
-2. In the configuration form:
-   - Select the price variable (String, JSON)
-   - Select the switch variable (Boolean)
-   - Set runtime and finish time
-3. Use the Boolean variable "Start Calculation" to start/cancel the process
+Eine NICHT smarte Spülmaschine. Das Gerät wird über eine Schaltbare Steckdose ein- bzw. ausgeschaltet. Die Spülmaschine wird startklar gemacht und das Spülprogramm gestartet. Danach aktiviert man über die Visualisierung die Variable "Smart-Start". Der optimale Startzeitpunkt wird berechnet und das Gerät, bzw die schaltbare Steckdose wird ausgeschaltet. Zum berechneten Startzeitpunkt wird das Gerät eingeschaltet. Wenn man eine Zielzeit hat kann diese im Konfigurationsformular eingestellt werden. Beispiel: Die Spülmaschine soll Nachts laufen und spätestens um 7 Uhr fertig sein.
 
-## Notes
-- The module only switches the device ON. Switching OFF must be handled externally.
-- The price variable must contain data in the following format:
-  ```json
-  [{"start": 1745445600, "end": 1745449200, "price": 32.29}, ...]
-  ```
+## Funktionen
+- Berechnet den besten Startzeitpunkt für ein Gerät basierend auf Preisdaten
+- Schaltet das Gerät zur berechneten Zeit ein (Boolean-Variable)
+- Der Vorgang kann jederzeit abgebrochen werden
+- Das Modul schaltet das Gerät nach der Berechnung des günstigsten Zeitpunktes AUS. Zum berechneten Zeitpunkt wird das Gerät dann eingeschaltet.
 
-## License
-MIT License
+## Einrichtung
+1. Modul in IP-Symcon installieren
+2. Im Konfigurationsformular:
+   - Preis-Variable auswählen  
+   - Schalt-Variable auswählen (Boolean)
+   - Laufzeit und späteste Endzeit einstellen
+   - Der Schalter "Gerät sofort schalten..." aktiviert das zu schaltende Gerät sofort, wenn kein Startzeitpunkt gefunden wird.
+
+## Hinweise
+- Das Modul schaltet das Gerät nach der Berechnung des günstigsten Zeitpunktes AUS. Zum berechneten Zeitpunkt wird das Gerät eingeschaltet.
+
+## Lizenz
+MIT-Lizenz
