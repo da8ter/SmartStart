@@ -8,7 +8,7 @@ class TibberBestPriceDeviceStarter extends IPSModule {
         $this->RegisterPropertyInteger('PriceVarID', 0); // ID der Preis-Variable
         $this->RegisterPropertyInteger('TargetVarID', 0); // ID der Ziel-Variable (Schaltaktor)
         $this->RegisterPropertyInteger('Duration', 60); // Laufzeit in Minuten
-        $this->RegisterPropertyInteger('EndTime', 79200); // Fertig um (Sekunden seit Mitternacht, Default: 22:00)
+        $this->RegisterPropertyInteger('EndTime', 0); // Fertig um (Sekunden seit Mitternacht, Default: 00:00)
 
         // Variablen
         $this->RegisterVariableBoolean('StartCalculation', $this->Translate('Berechnung starten'), '', 1);
