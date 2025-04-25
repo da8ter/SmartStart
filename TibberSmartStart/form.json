@@ -1,0 +1,50 @@
+{
+  "elements": [
+
+    {
+      "type": "SelectVariable",
+      "name": "PriceVarID",
+      "caption": "Strompreis-Variable",
+      "width": "400px",
+      "variableType": 3
+    },
+    {
+      "type": "Label",
+      "caption": "Hinweis: Die Daten für die Strompreis-Variable können z.B. vom Modul 'Strompreis (Vorhersage)' bereitgestellt werden."
+    },
+    {
+      "type": "SelectVariable",
+      "name": "TargetVarID",
+      "caption": "Schalt-Variable (Gerät)",
+      "width": "400px",
+      "variableType": 0
+    },
+    {
+      "type": "NumberSpinner",
+      "name": "Duration",
+      "caption": "Laufzeit (Minuten)"
+    },
+    {
+      "type": "SelectTime",
+      "name": "EndTime",
+      "caption": "Gerät soll fertig sein um"
+    },
+    {
+      "type": "CheckBox",
+      "name": "ImmediateSwitchOnNoSlot",
+      "caption": "Gerät sofort schalten, wenn kein Startzeitpunkt gefunden wird"
+    }
+  ],
+  "actions": [
+    {
+      "type": "Button",
+      "caption": "Start",
+      "onClick": "IPS_RequestAction($id, 'StartCalculation', true);"
+    },
+    {
+      "type": "Button",
+      "caption": "Abbrechen",
+      "onClick": "IPS_RequestAction($id, 'StartCalculation', false);"
+    }
+  ]
+}
