@@ -32,9 +32,9 @@
   ],
   "actions": [
     {
-      "type": "Button",
-      "caption": "Berechnung starten",
-      "onClick": "IPS_RequestAction($id, 'StartCalculation', true);"
+      "type": "CheckBox",
+      "name": "StartCalculation",
+      "caption": "Aktivieren"
     }
   ]
 }
