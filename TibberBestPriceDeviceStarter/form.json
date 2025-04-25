@@ -32,10 +32,6 @@
     }
   ],
   "actions": [
-    {
-      "type": "CheckBox",
-      "name": "StartCalculation",
-      "caption": "Status"
-    }
+
   ]
 }
