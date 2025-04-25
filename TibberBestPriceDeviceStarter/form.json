@@ -17,13 +17,7 @@
       "name": "TargetVarID",
       "caption": "Schalt-Variable (Gerät)",
       "width": "400px",
-      "variableTypes": [0, 1],
-      "onSelectionChange": "updateAssociations"
-    },
-    {
-      "type": "Label",
-      "name": "TargetVarAssociations",
-      "caption": " "
+      "variableType": 0
     },
     {
       "type": "NumberSpinner",
