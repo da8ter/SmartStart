@@ -15,7 +15,7 @@ class TibberBestPriceDeviceStarter extends IPSModule {
         $this->RegisterPropertyBoolean('ImmediateSwitchOnNoSlot', false); // Sofort schalten, wenn kein Slot gefunden wird
 
         // Variablen
-        $this->RegisterVariableBoolean('StartCalculation', $this->Translate('Status'), '~Switch', 1);
+        $this->RegisterVariableBoolean('StartCalculation', $this->Translate('Berechnung starten'), '~Switch', 1);
         $this->EnableAction('StartCalculation');
         $this->RegisterVariableString('StartTime', $this->Translate('Startzeitpunkt'), '', 2);
     }
@@ -145,6 +145,7 @@ class TibberBestPriceDeviceStarter extends IPSModule {
                 $bestStart = $slotStart;
             }
         }
+        $targetVarID = $this->ReadPropertyInteger('TargetVarID');
         if ($bestStart !== null) {
             SetValue($this->GetIDForIdent('StartTime'), date('H:i', $bestStart));
             $this->PlanSwitchingEvents($bestStart, $runSeconds);
@@ -152,15 +153,16 @@ class TibberBestPriceDeviceStarter extends IPSModule {
             SetValue($this->GetIDForIdent('StartTime'), 'Kein Startzeitpunkt gefunden');
             if ($this->ReadPropertyBoolean('ImmediateSwitchOnNoSlot')) {
                 IPS_LogMessage('TibberDebug', 'Kein Startzeitpunkt gefunden, schalte Gerät sofort!');
-                $targetVarID = $this->ReadPropertyInteger('TargetVarID');
                 if ($targetVarID != 0 && IPS_VariableExists($targetVarID)) {
                     SetValue($targetVarID, true);
-                    // Optional: Timer für das Ausschalten setzen
-                    // $this->SetTimerInterval('StartDevice', $runSeconds * 1000);
                 } else {
                     IPS_LogMessage('TibberDebug', 'Sofort-Schaltung fehlgeschlagen: Keine gültige Ziel-Variable definiert!');
                 }
             }
+        }
+        // Gerät nach Berechnung immer ausschalten
+        if ($targetVarID != 0 && IPS_VariableExists($targetVarID)) {
+            SetValue($targetVarID, false);
         }
     }
 
