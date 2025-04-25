@@ -27,7 +27,7 @@
     {
       "type": "SelectTime",
       "name": "EndTime",
-      "caption": "Fertig um"
+      "caption": "Gerät soll fertig sein um"
     },
     {
       "type": "CheckBox",
