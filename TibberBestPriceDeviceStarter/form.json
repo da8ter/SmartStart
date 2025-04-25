@@ -25,5 +25,11 @@
       "caption": "Fertig um"
     }
   ],
-  "actions": []
+  "actions": [
+    {
+      "type": "Button",
+      "caption": "Berechnung starten",
+      "onClick": "IPS_RequestAction($id, 'StartCalculation', true);"
+    }
+  ]
 }
