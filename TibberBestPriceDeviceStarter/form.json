@@ -23,6 +23,11 @@
       "type": "SelectTime",
       "name": "EndTime",
       "caption": "Fertig um"
+    },
+    {
+      "type": "CheckBox",
+      "name": "ImmediateSwitchOnNoSlot",
+      "caption": "Gerät sofort schalten, wenn kein Startzeitpunkt gefunden wird"
     }
   ],
   "actions": [
