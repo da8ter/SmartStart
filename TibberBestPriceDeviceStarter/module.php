@@ -3,6 +3,9 @@ class TibberBestPriceDeviceStarter extends IPSModule {
     public function Create() {
         //Never delete this line!
         parent::Create();
+
+        // Timer registrieren
+        $this->RegisterTimer('StartDevice', 0, 'TBPDS_StartDevice($_IPS[\'TARGET\']);');
         
         // Konfigurations-Properties
         $this->RegisterPropertyInteger('PriceVarID', 0); // ID der Preis-Variable
@@ -126,36 +129,31 @@ class TibberBestPriceDeviceStarter extends IPSModule {
             IPS_LogMessage('TibberBestPriceDeviceStarter', 'Keine Ziel-Variable für Schalten definiert!');
             return;
         }
-        $this->RemoveSwitchingEvents();
-        // Einschalten
-        $switchOnEvent = @IPS_CreateEvent(1);
-        if ($switchOnEvent) {
-            IPS_SetName($switchOnEvent, 'Gerät einschalten');
-            IPS_SetParent($switchOnEvent, $this->InstanceID);
-            IPS_SetEventCyclicTimeFrom($switchOnEvent, (int)date('H', $startTimestamp), (int)date('i', $startTimestamp), 0);
-            IPS_SetEventCyclicDateFrom($switchOnEvent, (int)date('d', $startTimestamp), (int)date('m', $startTimestamp), (int)date('Y', $startTimestamp));
-            IPS_SetEventCyclic($switchOnEvent, 0, 0, 0, 0, 0, 0);
-            IPS_SetEventActive($switchOnEvent, true);
-            IPS_SetEventScript($switchOnEvent, 'SetValue(' . $targetVarID . ', true);');
-        }
+
+        // Berechne die Millisekunden bis zum Start
+        $now = time();
+        $msToStart = ($startTimestamp - $now) * 1000;
+        
+        // Timer für das Einschalten setzen
+        $this->SetTimerInterval('StartDevice', $msToStart);
+        
+        // Speichere die Ziel-Variable ID für den Timer
+        $this->SetBuffer('TargetVarID', $targetVarID);
     }
 
-    private function RemoveSwitchingEvents() {
-        $children = IPS_GetChildrenIDs($this->InstanceID);
-        foreach ($children as $childID) {
-            if (IPS_GetObject($childID)['ObjectType'] == 4) { // Event
-                $name = IPS_GetName($childID);
-                if ($name == 'Gerät einschalten') {
-                    IPS_DeleteEvent($childID);
-                }
-            }
+    public function StartDevice() {
+        $targetVarID = $this->GetBuffer('TargetVarID');
+        if ($targetVarID && IPS_VariableExists($targetVarID)) {
+            SetValue($targetVarID, true);
+            // Timer deaktivieren nach Ausführung
+            $this->SetTimerInterval('StartDevice', 0);
         }
     }
 
     private function AbortStart() {
-        // Hier Logik zum Abbrechen eines geplanten Starts
+        // Timer deaktivieren
+        $this->SetTimerInterval('StartDevice', 0);
         SetValue($this->GetIDForIdent('StartTime'), 'Abgebrochen');
-        $this->RemoveSwitchingEvents();
     }
 }
 ?>
