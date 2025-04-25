@@ -1,5 +1,34 @@
 <?php
 class TibberBestPriceDeviceStarter extends IPSModule {
+    public function GetConfigurationForm()
+    {
+        $form = json_decode(file_get_contents(__DIR__ . '/form.json'), true);
+        $targetVarID = $this->ReadPropertyInteger('TargetVarID');
+        $associationsText = '';
+        if ($targetVarID > 0 && IPS_VariableExists($targetVarID)) {
+            $var = IPS_GetVariable($targetVarID);
+            if ($var['VariableType'] == 1 && isset($var['VariableCustomProfile']) && $var['VariableCustomProfile'] != '') {
+                $profile = IPS_GetProfile($var['VariableCustomProfile']);
+            } elseif ($var['VariableType'] == 1 && isset($var['VariableProfile']) && $var['VariableProfile'] != '') {
+                $profile = IPS_GetProfile($var['VariableProfile']);
+            } else {
+                $profile = null;
+            }
+            if ($var['VariableType'] == 1 && $profile && isset($profile['Associations']) && count($profile['Associations']) > 0) {
+                $associationsText = "Mögliche Werte (Assoziationen):\n";
+                foreach ($profile['Associations'] as $assoc) {
+                    $associationsText .= $assoc['Value'] . ' = ' . $assoc['Name'] . (isset($assoc['Icon']) && $assoc['Icon'] ? ' (' . $assoc['Icon'] . ')' : '') . "\n";
+                }
+            }
+        }
+        // Label im Formular ersetzen
+        foreach ($form['elements'] as &$element) {
+            if (isset($element['name']) && $element['name'] === 'TargetVarAssociations') {
+                $element['caption'] = $associationsText;
+            }
+        }
+        return json_encode($form);
+    }
     public function Create() {
         //Never delete this line!
         parent::Create();
@@ -22,6 +51,19 @@ class TibberBestPriceDeviceStarter extends IPSModule {
 
     public function ApplyChanges() {
         parent::ApplyChanges();
+
+        // Referenzen aktualisieren
+        foreach ($this->GetReferenceList() as $ref) {
+            $this->UnregisterReference($ref);
+        }
+        $priceVarID = $this->ReadPropertyInteger('PriceVarID');
+        if ($priceVarID > 0) {
+            $this->RegisterReference($priceVarID);
+        }
+        $targetVarID = $this->ReadPropertyInteger('TargetVarID');
+        if ($targetVarID > 0) {
+            $this->RegisterReference($targetVarID);
+        }
     }
 
 
