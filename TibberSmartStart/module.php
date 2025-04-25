@@ -1,11 +1,11 @@
 <?php
-class TibberSmartStart extends IPSModule {
+class TibberSmart-Start extends IPSModule {
     public function Create() {
         //Never delete this line!
         parent::Create();
 
         // Timer registrieren
-        $this->RegisterTimer('StartDevice', 0, 'TBPDS_StartDevice($_IPS[\'TARGET\']);');
+        $this->RegisterTimer('StartDevice', 0, 'TIBSST_StartDevice($_IPS[\'TARGET\']);');
         
         // Konfigurations-Properties
         $this->RegisterPropertyInteger('PriceVarID', 0); // ID der Preis-Variable
@@ -169,7 +169,7 @@ class TibberSmartStart extends IPSModule {
     private function PlanSwitchingEvents($startTimestamp, $runSeconds) {
         $targetVarID = $this->ReadPropertyInteger('TargetVarID');
         if ($targetVarID == 0 || !IPS_VariableExists($targetVarID)) {
-            IPS_LogMessage('TibberBestPriceDeviceStarter', 'Keine Ziel-Variable für Schalten definiert!');
+            IPS_LogMessage('TibberSmartStart', 'Keine Ziel-Variable für Schalten definiert!');
             return;
         }
 
