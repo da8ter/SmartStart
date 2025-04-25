@@ -35,6 +35,24 @@ class TibberBestPriceDeviceStarter extends IPSModule {
     }
 
     private function CalculateBestStartTime() {
+        // Debug: Zeitfenster und Laufzeit ausgeben
+        $now = time();
+        $today = date('Y-m-d');
+        $duration = $this->ReadPropertyInteger('Duration');
+        $endTime = $this->ReadPropertyString('EndTime');
+        $runSeconds = $duration * 60;
+        $endTimestamp = strtotime($today . ' ' . $endTime);
+        if ($endTimestamp < $now) {
+            $endTimestamp = strtotime('+1 day', $endTimestamp);
+        }
+        $windowStart = $now;
+        $windowEnd = $endTimestamp;
+        IPS_LogMessage('TibberDebug', 'now: '.date('Y-m-d H:i:s', $now));
+        IPS_LogMessage('TibberDebug', 'endTimestamp: '.date('Y-m-d H:i:s', $endTimestamp));
+        IPS_LogMessage('TibberDebug', 'runSeconds: '.$runSeconds);
+        IPS_LogMessage('TibberDebug', 'window: '.($windowEnd-$windowStart).' Sekunden');
+
+        // --- Originalcode ab hier ---
         $priceVarID = $this->ReadPropertyInteger('PriceVarID');
         $duration = $this->ReadPropertyInteger('Duration');
         $endTime = $this->ReadPropertyString('EndTime');
@@ -64,6 +82,7 @@ class TibberBestPriceDeviceStarter extends IPSModule {
         $bestSum = PHP_INT_MAX;
         $runSeconds = $duration * 60;
         foreach ($prices as $i => $slot) {
+            IPS_LogMessage('TibberDebug', "Slot $i: start=".date('Y-m-d H:i:s', $slot['start']).", end=".date('Y-m-d H:i:s', $slot['end']).", price=".$slot['price']);
             $slotStart = $slot['start'];
             $slotEnd = $slotStart + $runSeconds;
             if ($slotEnd > $windowEnd) continue;
