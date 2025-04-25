@@ -38,39 +38,13 @@ class TibberBestPriceDeviceStarter extends IPSModule {
     }
 
     private function CalculateBestStartTime() {
-        // Debug: Zeitfenster und Laufzeit ausgeben
-        $now = time();
-        $today = date('Y-m-d');
-        $duration = $this->ReadPropertyInteger('Duration');
-        // EndTime im Format HH:MM nach Sekunden seit Mitternacht umrechnen
-        $endTimeRaw = $this->ReadPropertyString('EndTime');
-        list($h, $m) = explode(':', $endTimeRaw);
-        $endTimeSeconds = ((int)$h) * 3600 + ((int)$m) * 60;
-        $runSeconds = $duration * 60;
-        $today = date('Y-m-d');
-        $now = time();
-        $endTimestamp = strtotime($today) + $endTimeSeconds;
-        if ($endTimestamp < $now) {
-            $endTimestamp = strtotime('+1 day', strtotime($today)) + $endTimeSeconds;
-        }
-        $windowStart = $now;
-        $windowEnd = $endTimestamp;
-        IPS_LogMessage('TibberDebug', 'now: '.date('Y-m-d H:i:s', $now));
-        IPS_LogMessage('TibberDebug', 'endTimestamp: '.date('Y-m-d H:i:s', $endTimestamp));
-        IPS_LogMessage('TibberDebug', 'runSeconds: '.$runSeconds);
-        IPS_LogMessage('TibberDebug', 'window: '.($windowEnd-$windowStart).' Sekunden');
-
-        // --- Originalcode ab hier ---
         $priceVarID = $this->ReadPropertyInteger('PriceVarID');
-        $duration = $this->ReadPropertyInteger('Duration');
-        $endTimeRaw = $this->ReadPropertyString('EndTime');
-        list($h, $m) = explode(':', $endTimeRaw);
-        $endTimeSeconds = ((int)$h) * 3600 + ((int)$m) * 60;
-
         if ($priceVarID == 0 || !IPS_VariableExists($priceVarID)) {
             SetValue($this->GetIDForIdent('StartTime'), 'Keine Preis-Variable gewählt');
             return;
         }
+
+        // Preisdaten abrufen und validieren
         $json = GetValue($priceVarID);
         $prices = json_decode($json, true);
         if (!is_array($prices)) {
@@ -78,14 +52,28 @@ class TibberBestPriceDeviceStarter extends IPSModule {
             return;
         }
 
+        // Zeitfenster berechnen
         $now = time();
+        $duration = $this->ReadPropertyInteger('Duration');
+        $runSeconds = $duration * 60;
+
+        // Endzeitpunkt berechnen
+        $endTimeRaw = $this->ReadPropertyString('EndTime');
+        list($h, $m) = explode(':', $endTimeRaw);
+        $endTimeSeconds = ((int)$h) * 3600 + ((int)$m) * 60;
         $today = date('Y-m-d');
         $endTimestamp = strtotime($today) + $endTimeSeconds;
         if ($endTimestamp < $now) {
             $endTimestamp = strtotime('+1 day', strtotime($today)) + $endTimeSeconds;
         }
+
         $windowStart = $now;
         $windowEnd = $endTimestamp;
+
+        IPS_LogMessage('TibberDebug', 'Zeitfenster: ' .
+            'Start=' . date('Y-m-d H:i:s', $windowStart) .
+            ', Ende=' . date('Y-m-d H:i:s', $windowEnd) .
+            ', Laufzeit=' . $duration . ' Minuten');
 
         // Besten Startzeitpunkt suchen
         $bestStart = null;
@@ -93,6 +81,13 @@ class TibberBestPriceDeviceStarter extends IPSModule {
         $runSeconds = $duration * 60;
         foreach ($prices as $i => $slot) {
             $slotStart = $slot['start'];
+            
+            // Überprüfen ob der Slot in der Zukunft liegt
+            if ($slotStart < $now) {
+                IPS_LogMessage('TibberDebug', "Slot $i: Übersprungen - Startzeitpunkt liegt in der Vergangenheit");
+                continue;
+            }
+
             $slotEnd = $slotStart + $runSeconds;
             
             // Überprüfen ob das Gerät rechtzeitig fertig wird
@@ -101,10 +96,10 @@ class TibberBestPriceDeviceStarter extends IPSModule {
                 continue;
             }
             
-            IPS_LogMessage('TibberDebug', "Slot $i: start=".date('Y-m-d H:i:s', $slot['start']).
-                ", end=".date('Y-m-d H:i:s', $slot['end']).
-                ", price=".$slot['price'].
-                ", deviceEnd=".date('Y-m-d H:i:s', $slotEnd));
+            IPS_LogMessage('TibberDebug', "Slot $i: " .
+                "Start=" . date('Y-m-d H:i:s', $slotStart) .
+                ", Ende=" . date('Y-m-d H:i:s', $slotEnd) .
+                ", Preis=" . number_format($slot['price'], 2) . " EUR/kWh");
             // Summe der Preise im Laufzeitfenster
             $sum = 0;
             $covered = 0;
