@@ -36,6 +36,15 @@
     }
   ],
   "actions": [
-
+    {
+      "type": "Button",
+      "caption": "Start",
+      "onClick": "IPS_RequestAction($id, 'StartCalculation', true);"
+    },
+    {
+      "type": "Button",
+      "caption": "Abbrechen",
+      "onClick": "IPS_RequestAction($id, 'StartCalculation', false);"
+    }
   ]
 }
