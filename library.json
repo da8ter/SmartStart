@@ -1,6 +1,6 @@
 {
   "id": "{A0E370CC-0327-C3CA-3791-C652463FAA6F}",
-  "name": "Tibber Smart Start",
+  "name": "Tibber Smart-Start",
   "author": "Stephan Sprick",
   "url": "https://github.com/da8ter/TibberSmartStart.git",
   "compatibility": {
@@ -8,5 +8,11 @@
   },
   "version": "1.0.0",
   "build": 0,
-  "date": "2025-04-25"
- }
+  "date": "2025-04-25",
+  "modules": [
+    {
+      "id": "{5BB757F1-091F-A53E-B604-1B77E846C041}",
+      "name": "Tibber Smart Start"
+    }
+  ]
+}
