@@ -1,5 +1,5 @@
 <?php
-class TibberBestPriceDeviceStarter extends IPSModule {
+class TibberSmartStart extends IPSModule {
     public function Create() {
         //Never delete this line!
         parent::Create();
