@@ -92,10 +92,19 @@ class TibberBestPriceDeviceStarter extends IPSModule {
         $bestSum = PHP_INT_MAX;
         $runSeconds = $duration * 60;
         foreach ($prices as $i => $slot) {
-            IPS_LogMessage('TibberDebug', "Slot $i: start=".date('Y-m-d H:i:s', $slot['start']).", end=".date('Y-m-d H:i:s', $slot['end']).", price=".$slot['price']);
             $slotStart = $slot['start'];
             $slotEnd = $slotStart + $runSeconds;
-            if ($slotEnd > $windowEnd) continue;
+            
+            // Überprüfen ob das Gerät rechtzeitig fertig wird
+            if ($slotEnd > $windowEnd) {
+                IPS_LogMessage('TibberDebug', "Slot $i: Übersprungen - Laufzeit würde Endzeitpunkt überschreiten");
+                continue;
+            }
+            
+            IPS_LogMessage('TibberDebug', "Slot $i: start=".date('Y-m-d H:i:s', $slot['start']).
+                ", end=".date('Y-m-d H:i:s', $slot['end']).
+                ", price=".$slot['price'].
+                ", deviceEnd=".date('Y-m-d H:i:s', $slotEnd));
             // Summe der Preise im Laufzeitfenster
             $sum = 0;
             $covered = 0;
