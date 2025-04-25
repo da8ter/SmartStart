@@ -17,7 +17,14 @@
       "name": "TargetVarID",
       "caption": "Schalt-Variable (Gerät)",
       "width": "400px",
-      "variableType": 0
+      "variableTypes": [0, 1],
+      "onSelectionChange": "updateAssociations"
+    },
+    {
+      "type": "AssociationField",
+      "name": "TargetVarAssociations",
+      "caption": "Assoziationen der gewählten Integer-Variable",
+      "visible": {"expression": "getVariableType($TargetVarID) == 1"}
     },
     {
       "type": "NumberSpinner",
