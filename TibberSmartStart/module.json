@@ -1,7 +1,6 @@
 {
     "id": "{5BB757F1-091F-A53E-B604-1B77E846C041}",
-    "name": "Tibber Smart Start",
-    "type": 3,
+    "name": "TibberSmartStart",
     "vendor": "Stephan Sprick",
     "aliases": [],
     "parentRequirements": [],
