@@ -1,12 +1,18 @@
 {
   "id": "{A0E370CC-0327-C3CA-3791-C652463FAA6F}",
-  "name": "TibberBestPriceDeviceStarter",
+  "name": "Tibber Smart-Start",
   "author": "Stephan Sprick",
   "url": "https://github.com/da8ter/TibberBestPriceDeviceStarter.git",
   "compatibility": {
-      "version": "7.2"
+    "version": "7.2"
   },
   "version": "1.0.4",
   "build": 0,
-  "date": 0
+  "date": "2025-04-24",
+  "modules": [
+    {
+      "id": "{A0E370CC-0327-C3CA-3791-C652463FAA6F}",
+      "name": "Tibber Smart-Start"
+    }
+  ]
 }
