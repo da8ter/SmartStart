@@ -1,20 +1,26 @@
 {
   "translations": {
     "de": {
-      "Status": "Status",
+      "Berechnung starten": "Berechnung starten",
       "Startzeitpunkt": "Startzeitpunkt",
       "Strompreis-Variable": "Strompreis-Variable",
       "Schalt-Variable (Gerät)": "Schalt-Variable (Gerät)",
       "Laufzeit (Minuten)": "Laufzeit (Minuten)",
-      "Fertig um": "Fertig um"
+      "Fertig um": "Fertig um",
+      "Gerät sofort schalten, wenn kein Startzeitpunkt gefunden wird": "Gerät sofort schalten, wenn kein Startzeitpunkt gefunden wird",
+      "Start": "Start",
+      "Abbrechen": "Abbrechen"
     },
     "en": {
-      "Status": "Start Calculation",
+      "Berechnung starten": "Start Calculation",
       "Startzeitpunkt": "Start Time",
       "Strompreis-Variable": "Electricity Price Variable",
       "Schalt-Variable (Gerät)": "Switch Variable (Device)",
       "Laufzeit (Minuten)": "Runtime (Minutes)",
-      "Fertig um": "Finish At"
+      "Fertig um": "Finish At",
+      "Gerät sofort schalten, wenn kein Startzeitpunkt gefunden wird": "Switch device immediately if no start time found",
+      "Start": "Start",
+      "Abbrechen": "Cancel"
     }
   }
 }
