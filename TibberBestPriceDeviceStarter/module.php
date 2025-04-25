@@ -39,11 +39,13 @@ class TibberBestPriceDeviceStarter extends IPSModule {
         $now = time();
         $today = date('Y-m-d');
         $duration = $this->ReadPropertyInteger('Duration');
-        $endTime = $this->ReadPropertyString('EndTime');
+        $endTimeSeconds = $this->ReadPropertyInteger('EndTime'); // SelectTime liefert Sekunden seit Mitternacht
         $runSeconds = $duration * 60;
-        $endTimestamp = strtotime($today . ' ' . $endTime);
+        $today = date('Y-m-d');
+        $now = time();
+        $endTimestamp = strtotime($today) + $endTimeSeconds;
         if ($endTimestamp < $now) {
-            $endTimestamp = strtotime('+1 day', $endTimestamp);
+            $endTimestamp = strtotime('+1 day', strtotime($today)) + $endTimeSeconds;
         }
         $windowStart = $now;
         $windowEnd = $endTimestamp;
@@ -55,7 +57,7 @@ class TibberBestPriceDeviceStarter extends IPSModule {
         // --- Originalcode ab hier ---
         $priceVarID = $this->ReadPropertyInteger('PriceVarID');
         $duration = $this->ReadPropertyInteger('Duration');
-        $endTime = $this->ReadPropertyString('EndTime');
+        $endTimeSeconds = $this->ReadPropertyInteger('EndTime');
 
         if ($priceVarID == 0 || !IPS_VariableExists($priceVarID)) {
             SetValue($this->GetIDForIdent('StartTime'), 'Keine Preis-Variable gewählt');
