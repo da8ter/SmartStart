@@ -21,10 +21,9 @@
       "onSelectionChange": "updateAssociations"
     },
     {
-      "type": "AssociationField",
+      "type": "Label",
       "name": "TargetVarAssociations",
-      "caption": "Assoziationen der gewählten Integer-Variable",
-      "visible": {"expression": "getVariableType($TargetVarID) == 1"}
+      "caption": " "
     },
     {
       "type": "NumberSpinner",
