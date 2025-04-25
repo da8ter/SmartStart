@@ -1,10 +1,6 @@
 {
   "elements": [
-    {
-      "type": "CheckBox",
-      "name": "StartCalculation",
-      "caption": "Status"
-    },
+
     {
       "type": "SelectVariable",
       "name": "PriceVarID",
@@ -35,5 +31,11 @@
       "caption": "Gerät sofort schalten, wenn kein Startzeitpunkt gefunden wird"
     }
   ],
-  "actions": []
+  "actions": [
+    {
+      "type": "CheckBox",
+      "name": "StartCalculation",
+      "caption": "Status"
+    }
+  ]
 }
