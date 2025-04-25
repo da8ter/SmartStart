@@ -1,7 +1,7 @@
 {
   "translations": {
     "de": {
-      "Berechnung starten": "Berechnung starten",
+      "Status": "Status",
       "Startzeitpunkt": "Startzeitpunkt",
       "Strompreis-Variable": "Strompreis-Variable",
       "Schalt-Variable (Gerät)": "Schalt-Variable (Gerät)",
@@ -9,7 +9,7 @@
       "Fertig um": "Fertig um"
     },
     "en": {
-      "Berechnung starten": "Start Calculation",
+      "Status": "Start Calculation",
       "Startzeitpunkt": "Start Time",
       "Strompreis-Variable": "Electricity Price Variable",
       "Schalt-Variable (Gerät)": "Switch Variable (Device)",
