@@ -8,7 +8,7 @@ class TibberBestPriceDeviceStarter extends IPSModule {
         $this->RegisterPropertyInteger('PriceVarID', 0); // ID der Preis-Variable
         $this->RegisterPropertyInteger('TargetVarID', 0); // ID der Ziel-Variable (Schaltaktor)
         $this->RegisterPropertyInteger('Duration', 60); // Laufzeit in Minuten
-        $this->RegisterPropertyInteger('EndTime', 0); // Fertig um (Sekunden seit Mitternacht, Default: 00:00)
+        $this->RegisterPropertyString('EndTime', '22:00'); // Fertig um (Format: HH:MM, Default: 22:00)
 
         // Variablen
         $this->RegisterVariableBoolean('StartCalculation', $this->Translate('Berechnung starten'), '', 1);
@@ -39,19 +39,10 @@ class TibberBestPriceDeviceStarter extends IPSModule {
         $now = time();
         $today = date('Y-m-d');
         $duration = $this->ReadPropertyInteger('Duration');
-        // Fallback: EndTime kann Integer (Sekunden seit Mitternacht) oder String ("HH:MM") sein
-        $endTimeRaw = $this->ReadProperty('EndTime');
-        if (is_numeric($endTimeRaw)) {
-            $endTimeSeconds = (int)$endTimeRaw;
-        } else {
-            // String wie "22:00" nach Sekunden seit Mitternacht umrechnen
-            if (strpos($endTimeRaw, ':') !== false) {
-                list($h, $m) = explode(':', $endTimeRaw);
-                $endTimeSeconds = ((int)$h) * 3600 + ((int)$m) * 60;
-            } else {
-                $endTimeSeconds = 79200; // Fallback auf 22:00 Uhr
-            }
-        }
+        // EndTime im Format HH:MM nach Sekunden seit Mitternacht umrechnen
+        $endTimeRaw = $this->ReadPropertyString('EndTime');
+        list($h, $m) = explode(':', $endTimeRaw);
+        $endTimeSeconds = ((int)$h) * 3600 + ((int)$m) * 60;
         $runSeconds = $duration * 60;
         $today = date('Y-m-d');
         $now = time();
@@ -69,7 +60,9 @@ class TibberBestPriceDeviceStarter extends IPSModule {
         // --- Originalcode ab hier ---
         $priceVarID = $this->ReadPropertyInteger('PriceVarID');
         $duration = $this->ReadPropertyInteger('Duration');
-        $endTimeSeconds = $this->ReadPropertyInteger('EndTime');
+        $endTimeRaw = $this->ReadPropertyString('EndTime');
+        list($h, $m) = explode(':', $endTimeRaw);
+        $endTimeSeconds = ((int)$h) * 3600 + ((int)$m) * 60;
 
         if ($priceVarID == 0 || !IPS_VariableExists($priceVarID)) {
             SetValue($this->GetIDForIdent('StartTime'), 'Keine Preis-Variable gewählt');
