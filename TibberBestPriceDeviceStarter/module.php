@@ -152,7 +152,14 @@ class TibberBestPriceDeviceStarter extends IPSModule {
             SetValue($this->GetIDForIdent('StartTime'), 'Kein Startzeitpunkt gefunden');
             if ($this->ReadPropertyBoolean('ImmediateSwitchOnNoSlot')) {
                 IPS_LogMessage('TibberDebug', 'Kein Startzeitpunkt gefunden, schalte Gerät sofort!');
-                $this->PlanSwitchingEvents(time(), $runSeconds);
+                $targetVarID = $this->ReadPropertyInteger('TargetVarID');
+                if ($targetVarID != 0 && IPS_VariableExists($targetVarID)) {
+                    SetValue($targetVarID, true);
+                    // Optional: Timer für das Ausschalten setzen
+                    // $this->SetTimerInterval('StartDevice', $runSeconds * 1000);
+                } else {
+                    IPS_LogMessage('TibberDebug', 'Sofort-Schaltung fehlgeschlagen: Keine gültige Ziel-Variable definiert!');
+                }
             }
         }
     }
