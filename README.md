@@ -4,7 +4,7 @@ Dieses IP-Symcon Modul schaltet ein Gerät automatisch zum optimalen (günstigst
 
 Beispiel für einen Anwendungsfall:
 
-Eine NICHT smarte Spülmaschine. Das Gerät wird über eine Schaltbare Steckdose ein- bzw. ausgeschaltet. Die Spülmaschine wird startklar gemacht und das Spülprogramm gestartet. Danach aktiviert man über die Visualisierung die Variable "Smart-Start". Der optimale Startzeitpunkt wird berechnet und das Gerät, bzw die schaltbare Steckdose wird ausgeschaltet. Zum berechneten Startzeitpunkt wird das Gerät eingeschaltet. Wenn man eine Zielzeit hat kann diese im Konfigurationsformular eingestellt werden. Beispiel: Die Spülmaschine soll Nachts laufen und spätestens um 7 Uhr fertig sein.
+Eine NICHT smarte Spülmaschine. Das Gerät wird über eine schaltbare Steckdose ein- bzw. ausgeschaltet. Die Spülmaschine wird startklar gemacht und das Spülprogramm gestartet. Danach aktiviert man über die Visualisierung die Variable "Smart-Start". Der optimale Startzeitpunkt wird berechnet und das Gerät, bzw die schaltbare Steckdose wird ausgeschaltet. Zum berechneten Startzeitpunkt wird das Gerät eingeschaltet. Wenn man eine Zielzeit hat kann diese im Konfigurationsformular eingestellt werden. Beispiel: Die Spülmaschine soll Nachts laufen und spätestens um 7 Uhr fertig sein.
 
 ## Funktionen
 - Berechnet den besten Startzeitpunkt für ein Gerät basierend auf Preisdaten
