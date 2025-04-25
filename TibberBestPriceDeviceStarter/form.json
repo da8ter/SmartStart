@@ -1,6 +1,11 @@
 {
   "elements": [
     {
+      "type": "CheckBox",
+      "name": "StartCalculation",
+      "caption": "Aktivieren"
+    },
+    {
       "type": "SelectVariable",
       "name": "PriceVarID",
       "caption": "Strompreis-Variable",
@@ -30,11 +35,5 @@
       "caption": "Gerät sofort schalten, wenn kein Startzeitpunkt gefunden wird"
     }
   ],
-  "actions": [
-    {
-      "type": "CheckBox",
-      "name": "StartCalculation",
-      "caption": "Status"
-    }
-  ]
+  "actions": []
 }
