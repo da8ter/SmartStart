@@ -39,7 +39,19 @@ class TibberBestPriceDeviceStarter extends IPSModule {
         $now = time();
         $today = date('Y-m-d');
         $duration = $this->ReadPropertyInteger('Duration');
-        $endTimeSeconds = $this->ReadPropertyInteger('EndTime'); // SelectTime liefert Sekunden seit Mitternacht
+        // Fallback: EndTime kann Integer (Sekunden seit Mitternacht) oder String ("HH:MM") sein
+        $endTimeRaw = $this->ReadProperty('EndTime');
+        if (is_numeric($endTimeRaw)) {
+            $endTimeSeconds = (int)$endTimeRaw;
+        } else {
+            // String wie "22:00" nach Sekunden seit Mitternacht umrechnen
+            if (strpos($endTimeRaw, ':') !== false) {
+                list($h, $m) = explode(':', $endTimeRaw);
+                $endTimeSeconds = ((int)$h) * 3600 + ((int)$m) * 60;
+            } else {
+                $endTimeSeconds = 79200; // Fallback auf 22:00 Uhr
+            }
+        }
         $runSeconds = $duration * 60;
         $today = date('Y-m-d');
         $now = time();
