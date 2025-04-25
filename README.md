@@ -1,4 +1,4 @@
-# Tibber Smart-Start
+# Tibber Smart Start
 
 Dieses IP-Symcon Modul schaltet ein Gerät automatisch zum optimalen (günstigsten) Strompreis ein. Die Preisinformationen müssen über eine externe Preis-Variable bereitgestellt werden. (z.B. durch das Modul "Tibber V2" Variable "Preisvorschaudaten für Energie Optimierer")
 
