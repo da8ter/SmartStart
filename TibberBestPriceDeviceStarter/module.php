@@ -65,8 +65,24 @@ class TibberBestPriceDeviceStarter extends IPSModule {
 
         // Endzeitpunkt berechnen
         $endTimeRaw = $this->ReadPropertyString('EndTime');
-        list($h, $m) = explode(':', $endTimeRaw);
-        $endTimeSeconds = ((int)$h) * 3600 + ((int)$m) * 60;
+        $hour = 0;
+        $minute = 0;
+        $second = 0;
+        
+        // Versuche JSON zu dekodieren
+        $parsed = json_decode($endTimeRaw, true);
+        if (is_array($parsed) && isset($parsed['hour']) && isset($parsed['minute'])) {
+            $hour = (int)$parsed['hour'];
+            $minute = (int)$parsed['minute'];
+            $second = isset($parsed['second']) ? (int)$parsed['second'] : 0;
+        } else if (strpos($endTimeRaw, ':') !== false) {
+            // Fallback: String "HH:MM[:SS]"
+            $parts = explode(':', $endTimeRaw);
+            $hour = (int)$parts[0];
+            $minute = isset($parts[1]) ? (int)$parts[1] : 0;
+            $second = isset($parts[2]) ? (int)$parts[2] : 0;
+        }
+        $endTimeSeconds = $hour * 3600 + $minute * 60 + $second;
         $today = date('Y-m-d');
         $endTimestamp = strtotime($today) + $endTimeSeconds;
         if ($endTimestamp < $now) {
