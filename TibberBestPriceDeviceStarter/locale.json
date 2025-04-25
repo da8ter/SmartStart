@@ -6,7 +6,7 @@
       "Strompreis-Variable": "Strompreis-Variable",
       "Schalt-Variable (Gerät)": "Schalt-Variable (Gerät)",
       "Laufzeit (Minuten)": "Laufzeit (Minuten)",
-      "Fertig um": "Fertig um",
+      "Gerät soll fertig sein um": "Gerät soll fertig sein um",
       "Gerät sofort schalten, wenn kein Startzeitpunkt gefunden wird": "Gerät sofort schalten, wenn kein Startzeitpunkt gefunden wird",
       "Start": "Start",
       "Abbrechen": "Abbrechen"
