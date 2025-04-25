@@ -1,12 +1,11 @@
 {
     "id": "{A0E370CC-0327-C3CA-3791-C652463FAA6F}",
-    "name": "TibberBestPriceDeviceStarter",
+    "name": "Tibber Smart-Start",
+    "vendor": "Stephan Sprick",
     "aliases": [],
-    "vendor": "da8ter",
-    "type": 3,
     "parentRequirements": [],
     "childRequirements": [],
     "implemented": [],
     "prefix": "TIBS",
-    "url": "https://github.com/da8ter/TibberBestPriceDeviceStarter.git"
+    "url": "https://github.com/ssp/TibberBestPriceDeviceStarter.git"
 }
