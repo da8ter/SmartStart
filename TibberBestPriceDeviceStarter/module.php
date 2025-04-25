@@ -11,7 +11,7 @@ class TibberBestPriceDeviceStarter extends IPSModule {
         $this->RegisterPropertyInteger('PriceVarID', 0); // ID der Preis-Variable
         $this->RegisterPropertyInteger('TargetVarID', 0); // ID der Ziel-Variable (Schaltaktor)
         $this->RegisterPropertyInteger('Duration', 60); // Laufzeit in Minuten
-        $this->RegisterPropertyString('EndTime', '{"hour":22,"minute":00,"second":00}'); // Fertig um (Format: HH:MM, Default: 22:00)
+        $this->RegisterPropertyString('EndTime', '22:00:00'); // Fertig um (Format: HH:MM, Default: 22:00)
         $this->RegisterPropertyBoolean('ImmediateSwitchOnNoSlot', false); // Sofort schalten, wenn kein Slot gefunden wird
 
         // Variablen
