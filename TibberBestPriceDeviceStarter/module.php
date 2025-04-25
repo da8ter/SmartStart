@@ -70,9 +70,13 @@ class TibberBestPriceDeviceStarter extends IPSModule {
         $windowStart = $now;
         $windowEnd = $endTimestamp;
 
+        // Berechne den spätesten möglichen Startzeitpunkt
+        $latestStart = $windowEnd - $runSeconds;
+        
         IPS_LogMessage('TibberDebug', 'Zeitfenster: ' .
             'Start=' . date('Y-m-d H:i:s', $windowStart) .
             ', Ende=' . date('Y-m-d H:i:s', $windowEnd) .
+            ', Spätester Start=' . date('Y-m-d H:i:s', $latestStart) .
             ', Laufzeit=' . $duration . ' Minuten');
 
         // Besten Startzeitpunkt suchen
@@ -81,6 +85,7 @@ class TibberBestPriceDeviceStarter extends IPSModule {
         $runSeconds = $duration * 60;
         foreach ($prices as $i => $slot) {
             $slotStart = $slot['start'];
+            $slotEnd = $slotStart + $runSeconds;
             
             // Überprüfen ob der Slot in der Zukunft liegt
             if ($slotStart < $now) {
@@ -88,11 +93,9 @@ class TibberBestPriceDeviceStarter extends IPSModule {
                 continue;
             }
 
-            $slotEnd = $slotStart + $runSeconds;
-            
-            // Überprüfen ob das Gerät rechtzeitig fertig wird
-            if ($slotEnd > $windowEnd) {
-                IPS_LogMessage('TibberDebug', "Slot $i: Übersprungen - Laufzeit würde Endzeitpunkt überschreiten");
+            // Überprüfen ob der Startzeitpunkt vor dem Endzeitpunkt minus Laufzeit liegt
+            if ($slotStart > ($windowEnd - $runSeconds)) {
+                IPS_LogMessage('TibberDebug', "Slot $i: Übersprungen - Startzeitpunkt zu spät für Laufzeit");
                 continue;
             }
             
