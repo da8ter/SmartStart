@@ -15,7 +15,7 @@ class TibberBestPriceDeviceStarter extends IPSModule {
         $this->RegisterPropertyBoolean('ImmediateSwitchOnNoSlot', false); // Sofort schalten, wenn kein Slot gefunden wird
 
         // Variablen
-        $this->RegisterVariableBoolean('StartCalculation', $this->Translate('Berechnung starten'), '~Switch', 1);
+        $this->RegisterVariableBoolean('StartCalculation', $this->Translate('Status'), '~Switch', 1);
         $this->EnableAction('StartCalculation');
         $this->RegisterVariableString('StartTime', $this->Translate('Startzeitpunkt'), '', 2);
     }
