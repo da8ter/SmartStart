@@ -34,7 +34,7 @@
     {
       "type": "CheckBox",
       "name": "StartCalculation",
-      "caption": "Aktivieren"
+      "caption": "Status"
     }
   ]
 }
