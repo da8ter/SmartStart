@@ -9,6 +9,10 @@
       "variableType": 3
     },
     {
+      "type": "Label",
+      "caption": "Hinweis: Die Daten für die Strompreis-Variable können z.B. vom Modul 'Strompreis (Vorhersage)' bereitgestellt werden."
+    },
+    {
       "type": "SelectVariable",
       "name": "TargetVarID",
       "caption": "Schalt-Variable (Gerät)",
