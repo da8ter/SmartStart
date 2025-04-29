@@ -24,7 +24,7 @@ Eine **nicht** smarte Spülmaschine:
 
 ### **Einrichtung**
 
-1. Modul in IP-Symcon über die Modulverwaltung installieren: [[GitHub Repository]([https://github.com/da8ter/TibberSmartStart.git](https://github.com/da8ter/SmartStart.git))]
+1. Modul in IP-Symcon über die Modulverwaltung installieren: https://github.com/da8ter/SmartStart.git
 2. Instanz erstellen.
 3. Konfiguration:
   * Preis-Variable auswählen
