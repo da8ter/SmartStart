@@ -2,13 +2,13 @@
 
 Symcon-Modul, das ein Gerät (z. B. Spülmaschine an einer schaltbaren Steckdose) zum günstigsten Zeitpunkt vor einer Fertig-Zeit einschaltet. Die Preise kommen aus einer fremden Variable, typischerweise „Preisvorschaudaten für Energie Optimierer“ des Moduls Tibber V.2. Öffentliches Repo `da8ter/TibberSmartStart` (die `url` in `library.json`/`module.json` nennt `da8ter/SmartStart.git`), Arbeitszweig `main`.
 
-Projektwissen: **`docs/README.md`**, Befunde und Offenes in `docs/stand.md`.
+Projektwissen: **`.claude/docs/README.md`**, Befunde und Offenes in `.claude/docs/stand.md`.
 
 ## Aufbau
 
 - **`SmartStart/`** (Präfix `SMST`, Typ 3): einziges Modul. `module.php` enthält alles – Rechnung (`CalculateBestStartTime`), Einmal-Zeitgeber `StartDevice`, Abgleich Formular ↔ Variablen (`Runtime`, `EndTimeValue`).
 - Altbestand: `extends IPSModule` ohne `declare(strict_types=1)`, untypisierte Signaturen, Variablenprofil `~Switch`, deutsche Schlüssel in `locale.json`. Beim Umbau auf Module Strict die Overrides erst typisieren, wenn die Basisklasse `IPSModuleStrict` ist (Plattformwissen `module-strict-und-php.md`).
-- Eingangsformat der Preisvariable: JSON-Liste mit `start`, `end` (Unix-Sekunden) und `price` je Abschnitt; Vertrag auf der Gegenseite im Repo `da8ter/TibberV2` unter `docs/entscheidungen/preisdaten-fuer-optimierer.md`.
+- Eingangsformat der Preisvariable: JSON-Liste mit `start`, `end` (Unix-Sekunden) und `price` je Abschnitt; Vertrag auf der Gegenseite im Repo `da8ter/TibberV2` unter `.claude/docs/entscheidungen/preisdaten-fuer-optimierer.md`.
 
 ## Prüfen
 
@@ -31,4 +31,4 @@ Ein neuer Prüfstand für die Rechnung (Fenster, Überlappung, fehlende Preise) 
 
 ## Plattformwissen
 
-Gemessenes Symcon-Verhalten für alle Module: https://github.com/da8ter/SymDo-Family-Organizer/tree/SymDo-Beta/docs/plattform (lokal `../List/docs/plattform/`). Für dieses Modul besonders `module-strict-und-php.md` und `timer.md`.
+Gemessenes Symcon-Verhalten für alle Module: https://github.com/da8ter/SymDo-Family-Organizer/tree/SymDo-Beta/.claude/docs/plattform (lokal `../List/.claude/docs/plattform/`). Für dieses Modul besonders `module-strict-und-php.md` und `timer.md`.
